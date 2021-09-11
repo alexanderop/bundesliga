@@ -39,6 +39,45 @@ function GlobalFilter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) 
   )
 }
 
+export function InternationalPlaceCell({ value }) {
+  let renderInternationalPlace = 'renderNothing'
+  const championsLeaguePlaces = [1, 2, 3, 4]
+  const ueafeLeaguePlaces = [5, 6]
+  const abstieg = [17, 18]
+
+  if (championsLeaguePlaces.includes(value)) {
+    renderInternationalPlace = 'championsLeague'
+  }
+
+  if (ueafeLeaguePlaces.includes(value)) {
+    renderInternationalPlace = 'ueafaLeague'
+  }
+
+  if (value === 16) {
+    renderInternationalPlace = 'relegation'
+  }
+
+  if (abstieg.includes(value)) {
+    renderInternationalPlace = 'descent'
+  }
+
+  return (
+    <div className="flex">
+      <span
+        className={classNames(
+          'w-2 mr-1',
+          renderInternationalPlace.startsWith('renderNothing') ? '' : null,
+          renderInternationalPlace.startsWith('ueafa') ? 'bg-blue-600' : null,
+          renderInternationalPlace.startsWith('championsLeague') ? ' bg-green-500' : null,
+          renderInternationalPlace.startsWith('descent') ? 'bg-red-600' : null,
+          renderInternationalPlace.startsWith('relegation') ? 'bg-yellow-600' : null,
+        )}
+      />
+      <span>{value}</span>
+    </div>
+  )
+}
+
 export function TeamIconCell({ value, column, row }) {
   return (
     <div className="flex overflow-hidden -space-x-1">
@@ -53,21 +92,8 @@ export function TeamIconCell({ value, column, row }) {
   )
 }
 
-export function StatusPill({ value }) {
-  const status = value ? value.toLowerCase() : 'unknown'
-
-  return (
-    <span
-      className={classNames(
-        'px-3 py-1 uppercase leading-wide font-bold text-xs rounded-full shadow-sm',
-        status.startsWith('active') ? 'bg-green-100 text-green-700' : null,
-        status.startsWith('inactive') ? 'bg-yellow-100 text-yellow-700' : null,
-        status.startsWith('offline') ? 'bg-red-100 text-red-700' : null,
-      )}
-    >
-      {status}
-    </span>
-  )
+export function MakeCellBold({ value }) {
+  return <div className="font-bold">{value}</div>
 }
 
 function Table({ columns, data }: TableProps) {
@@ -103,7 +129,7 @@ function Table({ columns, data }: TableProps) {
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200" {...getTableProps()}>
+              <table className="min-w-full table-auto divide-y divide-gray-200" {...getTableProps()}>
                 <thead className="bg-gray-50">
                   {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -125,6 +151,8 @@ function Table({ columns, data }: TableProps) {
                                 ) : (
                                   <SortUpIcon className="w-4 h-4 text-gray-400" />
                                 )
+                              ) : column.disableSortBy ? (
+                                <div />
                               ) : (
                                 <SortIcon className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100" />
                               )}
@@ -139,7 +167,7 @@ function Table({ columns, data }: TableProps) {
                   {rows.map((row, i) => {
                     prepareRow(row)
                     return (
-                      <tr {...row.getRowProps()}>
+                      <tr className="hover:bg-gray-200" {...row.getRowProps()}>
                         {row.cells.map((cell) => {
                           return (
                             <td className="px-6 py-4 whitespace-nowrap" {...cell.getCellProps()}>

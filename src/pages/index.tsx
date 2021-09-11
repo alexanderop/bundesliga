@@ -1,7 +1,7 @@
 import React from 'react'
 import { NextPage } from 'next'
 import AppLayout from '@src/components/templates/AppLayout'
-import Table, { TeamIconCell } from '@src/components/atoms/Table'
+import Table, { TeamIconCell, MakeCellBold, InternationalPlaceCell } from '@src/components/atoms/Table'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'regenerator-runtime/runtime'
 
@@ -10,6 +10,7 @@ const Home: NextPage = ({ teams }) => {
     () => [
       {
         Header: '',
+        Cell: InternationalPlaceCell,
         accessor: 'Position',
       },
       {
@@ -17,6 +18,7 @@ const Home: NextPage = ({ teams }) => {
         Cell: TeamIconCell,
         accessor: 'TeamIconUrl',
         imgAccessor: 'TeamIconUrl',
+        disableSortBy: true,
       },
       {
         Header: 'Name',
@@ -29,6 +31,7 @@ const Home: NextPage = ({ teams }) => {
       {
         Header: 'Points',
         accessor: 'Points',
+        Cell: MakeCellBold,
       },
       {
         Header: 'W',
@@ -45,6 +48,8 @@ const Home: NextPage = ({ teams }) => {
       {
         Header: 'Goals',
         accessor: 'GoalsDiff',
+        disableSortBy: true,
+        Cell: MakeCellBold,
       },
       {
         Header: 'Diff',

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 
 const MainSection: React.FC<MainSectionProps> = ({ children }) => (
-  <section id="MainSection" className="container px-5 py-24 mx-auto">
+  <section id="MainSection" className="container px-5 mx-auto">
     {children}
   </section>
 )
