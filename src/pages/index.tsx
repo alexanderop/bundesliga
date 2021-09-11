@@ -1,100 +1,87 @@
 import React from 'react'
 import { NextPage } from 'next'
 import AppLayout from '@src/components/templates/AppLayout'
-import Table from '@src/components/atoms/Table'
+import Table, { TeamIconCell } from '@src/components/atoms/Table'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'regenerator-runtime/runtime'
 
-const getData = () => [
-  {
-    name: 'Jane Cooper',
-    email: 'jane.cooper@example.com',
-    title: 'Regional Paradigm Technician',
-    department: 'Optimization',
-    status: 'Active',
-    role: 'Admin',
-    imgUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-  {
-    name: 'Cody Fisher',
-    email: 'cody.fisher@example.com',
-    title: 'Product Directives Officer',
-    department: 'Intranet',
-    status: 'Active',
-    role: 'Owner',
-    imgUrl:
-      'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-  {
-    name: 'Esther Howard',
-    email: 'esther.howard@example.com',
-    title: 'Forward Response Developer',
-    department: 'Directives',
-    status: 'Active',
-    role: 'Member',
-    imgUrl:
-      'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-  {
-    name: 'Jenny Wilson',
-    email: 'jenny.wilson@example.com',
-    title: 'Central Security Manager',
-    department: 'Program',
-    status: 'Active',
-    role: 'Member',
-    imgUrl:
-      'https://images.unsplash.com/photo-1498551172505-8ee7ad69f235?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-  {
-    name: 'Kristin Watson',
-    email: 'kristin.watson@example.com',
-    title: 'Lean Implementation Liaison',
-    department: 'Mobility',
-    status: 'Active',
-    role: 'Admin',
-    imgUrl:
-      'https://images.unsplash.com/photo-1532417344469-368f9ae6d187?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-  {
-    name: 'Cameron Williamson',
-    email: 'cameron.williamson@example.com',
-    title: 'Internal Applications Engineer',
-    department: 'Security',
-    status: 'Active',
-    role: 'Member',
-    imgUrl:
-      'https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-]
-
-const Home: NextPage = () => {
+const Home: NextPage = ({ teams }) => {
   const columns = React.useMemo(
     () => [
       {
+        Header: '',
+        accessor: 'Position',
+      },
+      {
+        Header: '',
+        Cell: TeamIconCell,
+        accessor: 'TeamIconUrl',
+        imgAccessor: 'TeamIconUrl',
+      },
+      {
         Header: 'Name',
-        accessor: 'name',
+        accessor: 'TeamName',
       },
       {
-        Header: 'Title',
-        accessor: 'title',
+        Header: 'Matches',
+        accessor: 'Matches',
       },
       {
-        Header: 'Status',
-        accessor: 'status',
+        Header: 'Points',
+        accessor: 'Points',
       },
       {
-        Header: 'Role',
-        accessor: 'role',
+        Header: 'W',
+        accessor: 'Won',
+      },
+      {
+        Header: 'D',
+        accessor: 'Draw',
+      },
+      {
+        Header: 'L',
+        accessor: 'Lost',
+      },
+      {
+        Header: 'Goals',
+        accessor: 'GoalsDiff',
+      },
+      {
+        Header: 'Diff',
+        accessor: 'GoalDiff',
       },
     ],
     [],
   )
-  const data = React.useMemo(() => getData(), [])
 
   return (
     <AppLayout>
-      <Table columns={columns} data={data} />
+      <Table columns={columns} data={teams} />
     </AppLayout>
   )
+}
+
+export async function getServerSideProps(context) {
+  const response = await fetch('https://www.openligadb.de/api/getbltable/bl1/2021', {
+    headers: { Accept: 'application/json' },
+  })
+  const data = await response.json()
+
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
+  const teams = data.map((team, index) => ({
+    ...team,
+    Position: index + 1,
+    GoalsDiff: `${team.Goals}:${team.OpponentGoals}`,
+  }))
+
+  return {
+    props: { teams },
+  }
 }
 
 export default Home

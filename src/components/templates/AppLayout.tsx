@@ -13,7 +13,6 @@ const AppLayout = ({ children }: AppLayoutProps) => (
     <MainSection>
       <div>{children}</div>
     </MainSection>
-    <SiteFooter />
   </div>
 )
 

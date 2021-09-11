@@ -6,6 +6,9 @@ const ENV_VARS = {
 }
 
 module.exports = {
+  images: {
+    domains: ['i.imgur.com', 'upload.wikimedia.org'],
+  },
   env: ENV_VARS,
   publicRuntimeConfig: ENV_VARS,
   poweredByHeader: false,

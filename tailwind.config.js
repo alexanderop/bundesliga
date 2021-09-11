@@ -8,5 +8,6 @@ module.exports = {
     extend: {},
   },
   variants: {},
-  plugins: [],
+  // eslint-disable-next-line global-require
+  plugins: [require('@tailwindcss/forms')],
 }
