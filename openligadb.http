@@ -1,0 +1,45 @@
+### This fileis used for the vsCode extension REST Client to play with
+### the openligadb Api
+### https://github.com/OpenLigaDB/OpenLigaDB-Samples
+
+### Spiele des aktuellen Spieltages der ersten Bundesliga:
+### Der aktuelle Spieltag wird jeweils zur Hälfte der Zeit zwischen 
+### dem letzten Spiel des letzten Spieltages und dem ersten Spiel des 
+### nächsten Spieltages erhöht.
+GET https://www.openligadb.de/api/getmatchdata/bl1
+
+### Spiele des 8. Spieltages der ersten Bundesliga 2016/2017:
+GET https://www.openligadb.de/api/getmatchdata/bl1/2016/8
+
+### Alle Spiele der ersten Bundesliga 2016/2017:
+GET https://www.openligadb.de/api/getmatchdata/bl1/2016
+
+### Spiel mit der Id 39738:
+GET https://www.openligadb.de/api/getmatchdata/39738
+
+### Die aktuelle Group (entspricht z.B. bei der Fussball-Bundesliga dem 'Spieltag') des als Parameter zu übergebenden leagueShortcuts (z.B. 'bl1'):
+### Der aktuelle Spieltag wird jeweils zur Hälfte der Zeit zwischen dem letzten Spiel des letzten Spieltages und dem ersten Spiel des nächsten Spieltages erhöht.
+GET https://www.openligadb.de/api/getcurrentgroup/bl1
+
+### Eine Liste der Spiel-Einteilungen (Spieltag, Vorrunde, Finale, ...) der als Parameter zu übergebenden Liga + Saison
+GET https://www.openligadb.de/api/getavailablegroups/bl1/2016
+
+### Datum und Uhrzeit der letzten Änderung in den Daten des 8. Spieltages der ersten Bundesliga 2016/2017.
+### Diese Methode dient zur Ermittlung der Änderung von Spieldaten, um unnötiges Pollen der o.g. Service-Methoden zu vermeiden.
+GET https://www.openligadb.de/api/getlastchangedate/bl1/2016/8
+
+### Das nächste anstehende Spiel des als Parameter zu übergebenden Teams der ebenfalls zu übergebenen Liga:
+### '3005' entspricht der LeagueId der 1. Fußball Bundesliga 2016/2017
+### '7' entspricht der TeamId von Borussia Dortmund
+GET https://www.openligadb.de/api/getnextmatchbyleagueteam/3005/7
+
+### Alle teams einer Liga
+GET https://www.openligadb.de/api/getavailableteams/bl1/2021
+
+### Die Spiele, bei welchen die als Parameter übergebenen Teams gegeneinander spielten:
+GET https://www.openligadb.de/api/getmatchdata/40/7
+
+### Die Torschützen der übergebenen Liga:
+GET https://www.openligadb.de/api/getgoalgetters/bl1/2017
+### Die tabelle der ersten bundesliga
+GET https://www.openligadb.de/api/getbltable/bl1/2017

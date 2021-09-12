@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
 import SiteHeader from '../organisms/SiteHeader'
-import SiteFooter from '../organisms/SiteFooter'
 import MainSection from '../molecules/MainSection'
 
 type AppLayoutProps = {

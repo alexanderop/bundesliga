@@ -14,8 +14,15 @@ type TableProps = {
 
 /* eslint-disable react/jsx-props-no-spreading */
 
-// @ts-ignore
-function GlobalFilter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) {
+function GlobalFilter({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}: {
+  preGlobalFilteredRows: any[]
+  globalFilter: any
+  setGlobalFilter: (filterValue: any) => void
+}) {
   const count = preGlobalFilteredRows.length
   const [value, setValue] = useState(globalFilter)
   const onChange = useAsyncDebounce((filterValue) => {
@@ -39,8 +46,9 @@ function GlobalFilter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) 
   )
 }
 
-export function InternationalPlaceCell({ value }) {
-  let renderInternationalPlace = 'renderNothing'
+export function InternationalPlaceCell({ value }: { value: number }) {
+  let renderInternationalPlace: 'renderNothing' | 'championsLeague' | 'ueafaLeague' | 'relegation' | 'descent' =
+    'renderNothing'
   const championsLeaguePlaces = [1, 2, 3, 4]
   const ueafeLeaguePlaces = [5, 6]
   const abstieg = [17, 18]
@@ -78,26 +86,25 @@ export function InternationalPlaceCell({ value }) {
   )
 }
 
-export function TeamIconCell({ value, column, row }) {
+export function TeamIconCell({ value }: { value: string }) {
   return (
     <div className="flex overflow-hidden -space-x-1">
       <Image
         width={50}
         height={50}
         className="inline-block w-6 h-6 rounded-full ring-2 ring-white"
-        src={row.original[column.imgAccessor]}
+        src={value}
         alt=""
       />
     </div>
   )
 }
 
-export function MakeCellBold({ value }) {
+export function MakeCellBold({ value }: { value: string }) {
   return <div className="font-bold">{value}</div>
 }
 
 function Table({ columns, data }: TableProps) {
-  // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
     getTableBodyProps,
@@ -117,7 +124,6 @@ function Table({ columns, data }: TableProps) {
     useSortBy,
   )
 
-  // Render the UI for your table
   return (
     <div>
       <GlobalFilter

@@ -1,5 +1,4 @@
 import React from 'react'
-import SiteNavigation from '../molecules/SiteNavigation'
 
 const SiteHeader = () => (
   <header className="text-gray-600 body-font">
