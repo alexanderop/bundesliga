@@ -170,7 +170,7 @@ function Table({ columns, data }: TableProps) {
                   ))}
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200" {...getTableBodyProps()}>
-                  {rows.map((row, i) => {
+                  {rows.map((row) => {
                     prepareRow(row)
                     return (
                       <tr className="hover:bg-gray-200" {...row.getRowProps()}>

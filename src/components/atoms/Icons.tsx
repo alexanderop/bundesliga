@@ -1,6 +1,6 @@
-import React from 'React'
+import React from 'react'
 
-export function SortIcon({ className }) {
+export function SortIcon({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -17,7 +17,7 @@ export function SortIcon({ className }) {
   )
 }
 
-export function SortUpIcon({ className }) {
+export function SortUpIcon({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -34,7 +34,7 @@ export function SortUpIcon({ className }) {
   )
 }
 
-export function SortDownIcon({ className }) {
+export function SortDownIcon({ className }: { className: string }) {
   return (
     <svg
       className={className}
