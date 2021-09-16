@@ -100,6 +100,16 @@ export function TeamIconCell({ value }: { value: string }) {
   )
 }
 
+export function ConvertTimeToHourMinute({ value }: { value: string }) {
+  const date = new Date(value)
+
+  if (!date) {
+    return <div />
+  }
+
+  return <div>{`${date.getHours()}:${date.getMinutes()}`}</div>
+}
+
 export function MakeCellBold({ value }: { value: string }) {
   return <div className="font-bold">{value}</div>
 }

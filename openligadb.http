@@ -9,7 +9,7 @@
 GET https://www.openligadb.de/api/getmatchdata/bl1
 
 ### Spiele des 8. Spieltages der ersten Bundesliga 2016/2017:
-GET https://www.openligadb.de/api/getmatchdata/bl1/2016/8
+GET https://www.openligadb.de/api/getmatchdata/bl1/2018/4
 
 ### Alle Spiele der ersten Bundesliga 2016/2017:
 GET https://www.openligadb.de/api/getmatchdata/bl1/2016
